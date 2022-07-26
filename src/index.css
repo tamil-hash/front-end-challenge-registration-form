@@ -42,6 +42,7 @@
 .registration-form input,
 .registration-form textarea,
 .registration-form button {
+  font-size: 16px;
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.288);
   padding: 10px;
@@ -49,7 +50,7 @@
   height: 40px;
   border-radius: 8px;
   outline: none;
-  border: none;
+  border: 1px solid transparent;
 }
 .registration-form label span {
   color: red;
@@ -60,14 +61,52 @@
 .registration-form textarea {
   max-width: 400px;
   min-width: 400px;
+  min-height: 100px;
   max-height: 100px;
 }
 
 textarea::-webkit-input-placeholder,
 input::placeholder {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.603);
 }
 
 .registration-form button {
   cursor: pointer;
+  background-color: #202124;
+  border: 1px solid transparent;
+}
+
+.registration-form button:hover {
+  border: 1px solid #202124;
+  box-shadow: 0 0 10px 0 #2021249c inset, 0 0 20px 2px #2021249c;
+}
+
+.registration-form button:active {
+  transform: scale(1.01);
+}
+
+.registration-form input.error-input {
+  border: 1px solid rgb(204, 20, 20);
+}
+
+.registration-form .error-msg {
+  color: red;
+  font-weight: 600;
+}
+
+.success-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-container svg {
+  width: 100px;
+  height: 100px;
+}
+
+.success-container h1 {
+  margin-left: 20px;
 }
