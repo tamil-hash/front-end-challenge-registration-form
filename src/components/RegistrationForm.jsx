@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const mobileNumberRegex = /^\d{10}$/;
+const mailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -17,21 +18,21 @@ const RegistrationForm = () => {
 
   const validateFormData = (e) => {
     e.preventDefault();
-    let newErrors = { name: false, email: false, mobile: false };
+    let email = false,
+      name = false,
+      mobile = false;
     if (e.target[0].value === "") {
-      newErrors = { name: true, ...newErrors };
+      name = true;
     }
-    if (e.target[1].value === "") {
-      newErrors = { email: true, ...newErrors };
+    if (e.target[1].value === "" || !mailRegex.test(e.target[1].value)) {
+      email = true;
     }
-    if (e.target[2].value === "") {
-      newErrors = { mobile: true, ...newErrors };
-    } else if (!mobileNumberRegex.test(e.target[2].value)) {
-      console.log("asd");
-      newErrors = { mobile: true, ...newErrors };
+    if (!mobileNumberRegex.test(e.target[2].value)) {
+      mobile = true;
     }
-    setShowErrors(newErrors);
-    if (!newErrors.name && !newErrors.email && !newErrors.mobile) {
+    console.log({ name, email, mobile });
+    setShowErrors({ name, email, mobile });
+    if (!name && !email && !mobile) {
       submitForm();
     }
   };
@@ -65,7 +66,9 @@ const RegistrationForm = () => {
             placeholder="Email"
           />
           {showError.email && (
-            <p className="error-msg">Please enter your Mail id</p>
+            <p className="error-msg">
+              Please enter your Mail id or proper mail id
+            </p>
           )}
         </div>
         <div className="form-item">
@@ -78,7 +81,9 @@ const RegistrationForm = () => {
             placeholder="Mobile number"
           />
           {showError.mobile && (
-            <p className="error-msg">Please enter proper mobile number</p>
+            <p className="error-msg">
+              Mobile number should contain 10 digits and only numbers
+            </p>
           )}
         </div>
         <div className="form-item">
